@@ -13,30 +13,34 @@ function App() {
   const [search, setSearch] = useState("")
   const [movies, setMovies] = useState(moviesArray)
   const [filteredMovies, setFilteredMovies] = useState(movies)
+  const [selectedGenre, setSelectedGenre] = useState("")
 
+  // useEffect(() => {
+  //   const filteredArray = movies.filter((movie) => {
+  //     return movie.genre.toLowerCase().includes(search.toLocaleLowerCase());
+  //   });
+  //   setFilteredMovies(filteredArray)
+  // }, [movies, search])
 
   useEffect(() => {
-    console.log('funziona')
-    const filteredArray = movies.filter((movie) => {
-      return movie.genre.toLowerCase().includes(search.toLocaleLowerCase());
-    });
-    setFilteredMovies(filteredArray)
-  }, [movies, search])
-
+    const newFilteredMovies = movies.filter((movie) => {
+      return selectedGenre === movie.genre
+    })
+    setFilteredMovies(newFilteredMovies)
+  }, [selectedGenre]);
 
   return (
     <>
       <div className="container mt-5">
-        <select className="form-select mb-4 f-size" aria-label="Default select example">
+        <select className="form-select mb-4 f-size" aria-label="Default select example" onChange={(e) => { setSelectedGenre(e.target.value) }} >
           <option selected>Seleziona il genere che preferisci</option>
-          {filteredMovies.map(movie => (
-            <option value="1">{movie.genre}</option>
+          {movies.map(movie => (
+            <option value={movie.genre} >{movie.genre}</option>
           ))}
-
         </select>
         <ul className="list-group">
           <li className="list-group-item active" aria-current="true">React Movie Filter</li>
-          {moviesArray.map(movie => (
+          {filteredMovies.map(movie => (
             <li className="list-group-item" key={movie.genre}>{movie.title}</li>
           ))}
         </ul>
