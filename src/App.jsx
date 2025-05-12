@@ -1,8 +1,7 @@
 import { useState } from 'react'
 
-
 function App() {
-  const movies = [
+  const moviesArray = [
     { title: 'Inception', genre: 'Fantascienza' },
     { title: 'Il Padrino', genre: 'Thriller' },
     { title: 'Titanic', genre: 'Romantico' },
@@ -13,10 +12,13 @@ function App() {
 
   return (
     <>
-      <div className="container">
+      <div className="container mt-5">
         <ul class="list-group">
           <li class="list-group-item active" aria-current="true">React Movie Filter</li>
-          <li class="list-group-item">A second item</li>
+          {moviesArray.map(movie => (
+            <li class="list-group-item" key={movie.genre}>{movie.title}</li>
+          ))}
+
         </ul>
       </div>
     </>
