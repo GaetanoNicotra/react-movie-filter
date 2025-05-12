@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function App() {
   const moviesArray = [
@@ -10,12 +10,26 @@ function App() {
     { title: 'Pulp Fiction', genre: 'Thriller' },
   ];
 
+  const [search, setSearch] = useState("")
+  const [movies, setMovies] = useState(moviesArray)
+  const [filteredMovies, setFilteredMovies] = useState(movies)
+
+
+  useEffect(() => {
+    console.log('funziona')
+    const filteredArray = movies.filter((movie) => {
+      return movie.genre.toLowerCase().includes(search.toLocaleLowerCase());
+    });
+    setFilteredMovies(filteredArray)
+  }, [movies, search])
+
+
   return (
     <>
       <div className="container mt-5">
         <select className="form-select mb-4 f-size" aria-label="Default select example">
           <option selected>Seleziona il genere che preferisci</option>
-          {moviesArray.map(movie => (
+          {filteredMovies.map(movie => (
             <option value="1">{movie.genre}</option>
           ))}
 
