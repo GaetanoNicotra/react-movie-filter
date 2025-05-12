@@ -17,7 +17,6 @@ function App() {
         <ul class="list-group">
           <li class="list-group-item active" aria-current="true">React Movie Filter</li>
           <li class="list-group-item">A second item</li>
-
         </ul>
       </div>
     </>
