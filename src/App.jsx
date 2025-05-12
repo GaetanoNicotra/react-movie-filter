@@ -69,12 +69,10 @@ function App() {
             <input value={newFilm} onChange={(e) => {
               setNewFilm(e.target.value)
             }} type="text" className='px-4' placeholder='Inserisci un nuovo film' />
-            <button className='btn btn-primary ms-3'> Aggiungi</button>
-
             <input value={newFilmGenre} onChange={(e) => {
               setNewFilmGenre(e.target.value)
             }} type="text" className='px-4' placeholder='Inserisci il genere' />
-            <button className='btn btn-primary ms-3'> Aggiungi</button>
+            <button className='btn btn-primary ms-3 '> Aggiungi</button>
           </div>
         </form>
       </div>
