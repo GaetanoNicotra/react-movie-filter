@@ -10,19 +10,19 @@ function App() {
     { title: 'Pulp Fiction', genre: 'Thriller' },
   ];
 
-  //const [search, setSearch] = useState("")
+  const [search, setSearch] = useState("")
   const [movies, setMovies] = useState(moviesArray)
   const [filteredMovies, setFilteredMovies] = useState(movies)
   const [selectedGenre, setSelectedGenre] = useState("")
   const [newFilm, setNewFilm] = useState("")
   const [newFilmGenre, setNewFilmGenre] = useState("")
 
-  // useEffect(() => {
-  //   const filteredArray = movies.filter((movie) => {
-  //     return movie.genre.toLowerCase().includes(search.toLocaleLowerCase());
-  //   });
-  //   setFilteredMovies(filteredArray)
-  // }, [movies, search])
+  useEffect(() => {
+    const filteredArray = movies.filter((movie) => {
+      return movie.title.toLowerCase().includes(search.toLocaleLowerCase());
+    });
+    setFilteredMovies(filteredArray)
+  }, [movies, search])
 
   useEffect(() => {
     if (selectedGenre === 'Seleziona il genere che preferisci') {
@@ -30,7 +30,7 @@ function App() {
     }
     else {
       const newFilteredMovies = movies.filter((movie) => {
-        return selectedGenre === movie.genre
+        return selectedGenre.toLocaleLowerCase() === movie.genre.toLocaleLowerCase()
       })
       setFilteredMovies(newFilteredMovies)
     }
@@ -53,6 +53,11 @@ function App() {
             <option key={movie.title} value={movie.genre} >{movie.genre}</option>
           ))}
         </select>
+        <div className="input-class">
+          <input type="text" placeholder='Cerca..' className='form-control mb-4' value={search}
+            onChange={(e) => { setSearch(e.target.value) }} />
+          <hr />
+        </div>
         <ul className="list-group">
           <li className="list-group-item active" aria-current="true">React Movie Filter</li>
           {filteredMovies.map(movie => (
