@@ -14,6 +14,8 @@ function App() {
   const [movies, setMovies] = useState(moviesArray)
   const [filteredMovies, setFilteredMovies] = useState(movies)
   const [selectedGenre, setSelectedGenre] = useState("")
+  const [newFilm, setNewFilm] = useState("")
+  const [newFilmGenre, setNewFilmGenre] = useState("")
 
   // useEffect(() => {
   //   const filteredArray = movies.filter((movie) => {
@@ -32,8 +34,15 @@ function App() {
       })
       setFilteredMovies(newFilteredMovies)
     }
-  }, [selectedGenre]);
+  }, [selectedGenre, movies]);
 
+  const addFilm = (e) => {
+    e.preventDefault();
+    const newFilmObject = { title: newFilm, genre: newFilmGenre }
+    setMovies([...movies, newFilmObject])
+    setNewFilm("")
+    setNewFilmGenre("")
+  }
 
   return (
     <>
@@ -50,6 +59,19 @@ function App() {
             <li className="list-group-item" key={movie.title}>{movie.title}</li>
           ))}
         </ul>
+        <form onSubmit={addFilm}>
+          <div className="input-group mt-3">
+            <input value={newFilm} onChange={(e) => {
+              setNewFilm(e.target.value)
+            }} type="text" className='px-4' placeholder='Inserisci un nuovo film' />
+            <button className='btn btn-primary ms-3'> Aggiungi</button>
+
+            <input value={newFilmGenre} onChange={(e) => {
+              setNewFilmGenre(e.target.value)
+            }} type="text" className='px-4' placeholder='Inserisci il genere' />
+            <button className='btn btn-primary ms-3'> Aggiungi</button>
+          </div>
+        </form>
       </div>
     </>
   )
